@@ -25,6 +25,7 @@ include ../../../make-rules/shared-macros.mk
 
 COMPONENT_NAME=		freeradius
 COMPONENT_VERSION=	3.2.6
+COMPONENT_REVISION=	1
 COMPONENT_VERSION_=	$(subst .,_,$(COMPONENT_VERSION))
 COMPONENT_SUMMARY=	The FreeRADIUS server
 COMPONENT_DESCRIPTION=	The FreeRADIUS Server Project is a high performance and highly \

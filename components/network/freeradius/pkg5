@@ -11,7 +11,7 @@
         "library/libmemcached",
         "library/openldap",
         "library/readline-8",
-        "library/security/openssl-31",
+        "library/security/openssl-3",
         "library/talloc",
         "library/unixodbc",
         "runtime/perl",
