@@ -51,7 +51,7 @@ CONFIGURE_OPTIONS += --libdir='lib/mesa/amd64'
 #PKG_HARDLINKS += usr/lib/xorg/modules/dri/$(MACH64)/kms_swrast_dri.so
 
 # Command line options to GNU autoconf configure script
-CONFIGURE_OPTIONS += -Dgallium-drivers='swrast'
+CONFIGURE_OPTIONS += -Dgallium-drivers='swrast, crocus, iris'
 CONFIGURE_OPTIONS += -Dvulkan-drivers=''
 CONFIGURE_OPTIONS += -Dgbm=enabled
 CONFIGURE_OPTIONS += -Dglvnd=false
@@ -70,6 +70,8 @@ CONFIGURE_OPTIONS += -Dgallium-xa=disabled
 CONFIGURE_OPTIONS += -Ddri-drivers='i915'
 CONFIGURE_OPTIONS += -Ddri-drivers-path='$(X11_SERVERMODS_DIR)/dri$(SERVERMOD_SUBDIR)'
 CONFIGURE_OPTIONS += -Delf-tls=false
+CONFIGURE_OPTIONS += -Dprefer-crocus=true
+CONFIGURE_OPTIONS += -Dprefer-iris=true
 
 CFLAGS += $(XPG7MODE)
 CFLAGS += -Wno-incompatible-pointer-types -D_POSIX_PTHREAD_SEMANTICS
@@ -94,7 +96,7 @@ COMPONENT_POST_INSTALL_ACTION.64 += \
 	elfedit -e "dyn:runpath /usr/lib/mesa/$(MACH64):/usr/lib/xorg/$(MACH64):$(GCC_LIBDIR):${CLANG_LIBDIR}" \
 	  $(PROTOUSRLIBDIR)/mesa/$(MACH64)/$$f ; \
 	done ; \
-	for f in kms_swrast_dri.so i915_dri.so; do \
+	for f in kms_swrast_dri.so i915_dri.so crocus_dri.so iris_dri.so; do \
 	elfedit -e "dyn:runpath /usr/lib/mesa/$(MACH64):/usr/lib/xorg/$(MACH64):$(GCC_LIBDIR):${CLANG_LIBDIR}" \
 	  $(PROTOUSRLIBDIR)/xorg/modules/dri/$(MACH64)/$$f ; \
 	done ; \
