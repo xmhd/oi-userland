@@ -46,7 +46,7 @@ X11_SERVERLIBS_DIR= /usr/lib/xorg
 
 CONFIGURE_OPTIONS += --libdir='lib/mesa/amd64'
 
-PKG_HARDLINKS += usr/lib/xorg/modules/dri/$(MACH64)/kms_swrast_dri.so
+#PKG_HARDLINKS += usr/lib/xorg/modules/dri/$(MACH64)/kms_swrast_dri.so
 
 # Command line options to GNU autoconf configure script
 CONFIGURE_OPTIONS += -Dgallium-drivers='swrast, i915'
@@ -92,8 +92,10 @@ COMPONENT_POST_INSTALL_ACTION.64 += \
 	elfedit -e "dyn:runpath /usr/lib/mesa/$(MACH64):/usr/lib/xorg/$(MACH64):$(GCC_LIBDIR)" \
 	  $(PROTOUSRLIBDIR)/mesa/$(MACH64)/$$f ; \
 	done ; \
+	for f in kms_swrast_dri.so i915_dri.so; do \
 	elfedit -e "dyn:runpath /usr/lib/mesa/$(MACH64):/usr/lib/xorg/$(MACH64):$(GCC_LIBDIR)" \
-	  $(PROTOUSRLIBDIR)/xorg/modules/dri/$(MACH64)/i915_dri.so ; \
+	  $(PROTOUSRLIBDIR)/xorg/modules/dri/$(MACH64)/$$f ; \
+	done ; \
 	mv $(PROTOUSRDIR)/include/GL $(PROTOUSRDIR)/include/mesa
 
 # Manually added build dependencies
