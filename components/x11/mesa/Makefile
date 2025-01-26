@@ -49,7 +49,7 @@ CONFIGURE_OPTIONS += --libdir='lib/mesa/amd64'
 PKG_HARDLINKS += usr/lib/xorg/modules/dri/$(MACH64)/kms_swrast_dri.so
 
 # Command line options to GNU autoconf configure script
-CONFIGURE_OPTIONS += -Dgallium-drivers='swrast, i915, r600'
+CONFIGURE_OPTIONS += -Dgallium-drivers='swrast, i915'
 CONFIGURE_OPTIONS += -Dvulkan-drivers=''
 CONFIGURE_OPTIONS += -Dgbm=enabled
 CONFIGURE_OPTIONS += -Dglvnd=false
@@ -63,7 +63,7 @@ CONFIGURE_OPTIONS += -Dgles1=enabled
 CONFIGURE_OPTIONS += -Dgles2=enabled
 CONFIGURE_OPTIONS += -Dosmesa=true
 CONFIGURE_OPTIONS += -Dshared-glapi=enabled
-CONFIGURE_OPTIONS += -Dgallium-xvmc=enabled
+CONFIGURE_OPTIONS += -Dgallium-xvmc=disabled
 CONFIGURE_OPTIONS += -Dgallium-xa=enabled
 CONFIGURE_OPTIONS += -Ddri-drivers=''
 CONFIGURE_OPTIONS += -Ddri-drivers-path='$(X11_SERVERMODS_DIR)/dri$(SERVERMOD_SUBDIR)'
@@ -88,7 +88,7 @@ CONFIGURE_ENV += CPPFLAGS="$(CPPFLAGS)"
 # Add RPATH to xorg lib directory where is libdrm.
 
 COMPONENT_POST_INSTALL_ACTION.64 += \
-	for f in libgbm.so.1.0.0 libEGL.so.1.0.0 libGL.so.1.2.0 libxatracker.so.2.5.0 libXvMCr600.so.1.0.0 vdpau/libvdpau_r600.so.1.0.0; do \
+	for f in libgbm.so.1.0.0 libEGL.so.1.0.0 libGL.so.1.2.0 libxatracker.so.2.5.0; do \
 	elfedit -e "dyn:runpath /usr/lib/mesa/$(MACH64):/usr/lib/xorg/$(MACH64):$(GCC_LIBDIR)" \
 	  $(PROTOUSRLIBDIR)/mesa/$(MACH64)/$$f ; \
 	done ; \
